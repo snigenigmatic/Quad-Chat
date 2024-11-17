@@ -9,7 +9,7 @@ QuadChat brings university students together in real-time conversations.
 
 - [@snigenigmatic](https://www.github.com/snigenigmatic)
 - [@Chaitu-03](https://www.github.com/Chaitu-03)
--
+- [@Oliver-Zane](https://github.com/Oliver-Zane)
 
 
 ## Deployment
