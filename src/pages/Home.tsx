@@ -4,25 +4,26 @@ import { MessageSquare, Users, Shield, Zap, ArrowRight } from 'lucide-react';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-700">
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md fixed w-full z-10 shadow-sm">
+      <nav className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md fixed w-full z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
-              <MessageSquare className="h-8 w-8 text-indigo-600" />
-              <span className="text-2xl font-bold text-gray-900">QuadChat</span>
+              <MessageSquare className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">QuadChat</span>
             </div>
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <Link
                 to="/login"
-                className="px-4 py-2 text-gray-700 hover:text-indigo-600 transition-colors"
+                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors"
               >
                 Sign Up
               </Link>
@@ -35,19 +36,19 @@ const Home = () => {
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-8">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
                 Connect
               </span>{' '}
               with Your Campus Community
             </h1>
-            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               QuadChat brings university students together in real-time conversations.
               Share ideas, collaborate on projects, and build meaningful connections.
             </p>
             <Link
               to="/register"
-              className="inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 rounded-full hover:from-indigo-700 hover:to-purple-700 dark:hover:from-indigo-600 dark:hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -57,34 +58,34 @@ const Home = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="py-16 bg-white">
+      <div className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Everything You Need to Connect
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Powerful features designed to make your campus communication seamless and engaging.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
-              icon={<MessageSquare className="h-8 w-8 text-indigo-600" />}
+              icon={<MessageSquare className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />}
               title="Real-time Chat"
               description="Instant messaging with fellow students and study groups"
             />
             <FeatureCard
-              icon={<Users className="h-8 w-8 text-indigo-600" />}
+              icon={<Users className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />}
               title="Study Groups"
               description="Create or join subject-specific chat rooms"
             />
             <FeatureCard
-              icon={<Shield className="h-8 w-8 text-indigo-600" />}
+              icon={<Shield className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />}
               title="Secure"
               description="End-to-end encryption for private conversations"
             />
             <FeatureCard
-              icon={<Zap className="h-8 w-8 text-indigo-600" />}
+              icon={<Zap className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />}
               title="Fast & Reliable"
               description="Built for speed and consistent performance"
             />
@@ -93,13 +94,13 @@ const Home = () => {
       </div>
 
       {/* Social Proof */}
-      <div className="py-16 bg-gradient-to-b from-white to-indigo-50">
+      <div className="py-16 bg-gradient-to-b from-white to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Trusted by Students at Top Universities
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Join thousands of students who are already using QuadChat to connect and collaborate.
             </p>
           </div>
@@ -112,7 +113,7 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 dark:bg-gray-700 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
@@ -130,10 +131,10 @@ const Home = () => {
 };
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
-  <div className="p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-    <div className="inline-block p-3 bg-indigo-50 rounded-lg mb-4">{icon}</div>
-    <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
-    <p className="text-gray-600 leading-relaxed">{description}</p>
+  <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+    <div className="inline-block p-3 bg-indigo-50 dark:bg-indigo-400 rounded-lg mb-4">{icon}</div>
+    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{title}</h3>
+    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{description}</p>
   </div>
 );
 
@@ -146,5 +147,10 @@ const UniversityLogo = ({ src }: { src: string }) => (
     />
   </div>
 );
+
+const ThemeToggle = () => {
+  // Implement theme toggle logic here
+  return <div>Theme Toggle</div>;
+};
 
 export default Home;
