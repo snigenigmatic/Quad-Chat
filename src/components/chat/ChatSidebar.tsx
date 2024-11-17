@@ -4,6 +4,7 @@ import { User, Room } from '../../types/index';
 import UserList from './UserList';
 import RoomList from './RoomList';
 import CreateRoomModal from './CreateRoomModal';
+import ThemeToggle from '../ThemeToggle';
 
 interface ChatSidebarProps {
   currentUser: User | null;
@@ -53,28 +54,33 @@ export default function ChatSidebar({
   };
 
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-      <div className="p-4 border-b border-gray-200">
+    <div className="flex h-full flex-col bg-white dark:bg-gray-800">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <MessageSquare className="h-6 w-6 text-indigo-600" />
-            <span className="text-xl font-bold">QuadChat</span>
+            <MessageSquare className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">QuadChat</span>
           </div>
-          <button
-            onClick={onLogout}
-            className="p-2 rounded-lg hover:bg-gray-100"
-            title="Logout"
-          >
-            <LogOut className="h-5 w-5 text-gray-600" />
-          </button>
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+            <button
+              onClick={onLogout}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+              title="Logout"
+            >
+              <LogOut className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <button
           onClick={() => handleViewChange('users')}
           className={`flex-1 p-3 text-sm font-medium ${
-            view === 'users' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'
+            view === 'users' 
+              ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800' 
+              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
           }`}
         >
           <Users className="h-5 w-5 mx-auto mb-1" />
@@ -83,7 +89,9 @@ export default function ChatSidebar({
         <button
           onClick={() => handleViewChange('rooms')}
           className={`flex-1 p-3 text-sm font-medium ${
-            view === 'rooms' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'
+            view === 'rooms' 
+              ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800' 
+              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
           }`}
         >
           <MessageSquare className="h-5 w-5 mx-auto mb-1" />
@@ -91,7 +99,7 @@ export default function ChatSidebar({
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-white dark:bg-gray-800">
         {view === 'users' ? (
           <UserList
             currentUser={currentUser}
@@ -100,30 +108,21 @@ export default function ChatSidebar({
             onSelectUser={onSelectUser}
           />
         ) : (
-          <>
-            <div className="p-4">
-              <button
-                onClick={() => setIsCreateModalOpen(true)}
-                className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                Create Room
-              </button>
-            </div>
-            <RoomList
-              rooms={rooms}
-              selectedRoom={selectedRoom}
-              onSelectRoom={onSelectRoom}
-              onJoinRoom={onJoinRoom}
-            />
-          </>
+          <RoomList
+            rooms={rooms}
+            selectedRoom={selectedRoom}
+            onSelectRoom={onSelectRoom}
+            onCreateRoom={() => setIsCreateModalOpen(true)}
+          />
         )}
       </div>
 
-      <CreateRoomModal
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        onCreateRoom={handleCreateRoom}
-      />
+      {isCreateModalOpen && (
+        <CreateRoomModal
+          onClose={() => setIsCreateModalOpen(false)}
+          onCreateRoom={handleCreateRoom}
+        />
+      )}
     </div>
   );
 }

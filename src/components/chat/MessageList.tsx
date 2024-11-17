@@ -46,36 +46,35 @@ export default function MessageList({ messages, currentUser }: MessageListProps)
   return (
     <div 
       ref={containerRef}
-      className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth"
+      className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth bg-gray-50 dark:bg-gray-900"
     >
       {messages.map((msg, index) => (
         <div
-          key={msg._id || index}
+          key={msg._id || `temp-${index}`}
           className={`flex ${isOwnMessage(msg) ? 'justify-end' : 'justify-start'}`}
         >
-          <div className="max-w-[70%]">
-            <div
-              className={`rounded-lg px-4 py-2 ${
-                isOwnMessage(msg)
-                  ? 'bg-indigo-600 text-white rounded-br-none'
-                  : 'bg-gray-200 text-gray-900 rounded-bl-none'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-sm font-medium">
-                  {isOwnMessage(msg) ? 'You' : msg.sender.username}
-                </p>
-                <p className={`text-xs ${isOwnMessage(msg) ? 'text-indigo-200' : 'text-gray-500'}`}>
-                  {isValid(new Date(msg.timestamp)) ? format(new Date(msg.timestamp), 'HH:mm') : 'Just now'}
-                </p>
-              </div>
-              <p className="break-words">{msg.content}</p>
+          <div
+            className={`max-w-[70%] break-words rounded-lg px-4 py-2 ${
+              isOwnMessage(msg)
+                ? 'bg-indigo-600 text-white dark:bg-indigo-500'
+                : 'bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              {!isOwnMessage(msg) && (
+                <span className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                  {msg.sender.username}
+                </span>
+              )}
+              {isValid(new Date(msg.timestamp)) && (
+                <span className="text-xs text-gray-100 dark:text-gray-300">
+                  {format(new Date(msg.timestamp), 'HH:mm')}
+                </span>
+              )}
             </div>
-            {msg.type === 'direct' && (
-              <p className={`text-xs mt-1 ${isOwnMessage(msg) ? 'text-right' : 'text-left'} text-gray-500`}>
-                {isOwnMessage(msg) ? `Sent to ${msg.recipient?.username}` : 'Direct message'}
-              </p>
-            )}
+            <p className={`mt-1 ${isOwnMessage(msg) ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
+              {msg.content}
+            </p>
           </div>
         </div>
       ))}

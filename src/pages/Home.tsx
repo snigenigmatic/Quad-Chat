@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MessageSquare, Users, Shield, Zap, ArrowRight } from 'lucide-react';
+import ThemeToggle from '../components/ThemeToggle';
 
 const Home = () => {
   return (
@@ -147,10 +148,5 @@ const UniversityLogo = ({ src }: { src: string }) => (
     />
   </div>
 );
-
-const ThemeToggle = () => {
-  // Implement theme toggle logic here
-  return <div>Theme Toggle</div>;
-};
 
 export default Home;

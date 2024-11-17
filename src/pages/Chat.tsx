@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
 import axios from 'axios';
+import { MessageSquare } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { Message, User, Room } from '../types';
 import ChatSidebar from '../components/chat/ChatSidebar';
 import MessageList from '../components/chat/MessageList';
 import MessageInput from '../components/chat/MessageInput';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Chat() {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -228,29 +230,44 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <ChatSidebar
-        currentUser={user}
-        onlineUsers={onlineUsers}
-        selectedUser={selectedUser}
-        selectedRoom={selectedRoom}
-        rooms={rooms}
-        onSelectUser={handleSelectUser}
-        onSelectRoom={handleSelectRoom}
-        onCreateRoom={handleCreateRoom}
-        onJoinRoom={handleJoinRoom}
-        onLogout={handleLogout}
-      />
-      <div className="flex-1 flex flex-col bg-white rounded-l-2xl shadow-xl">
-        <div className="flex-1 overflow-hidden">
-          <MessageList
-            messages={messages}
-            currentUser={user}
-            selectedUser={selectedUser}
-            selectedRoom={selectedRoom}
-          />
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar */}
+      <div className="w-80 flex-shrink-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <ChatSidebar
+          currentUser={user}
+          onlineUsers={onlineUsers}
+          selectedUser={selectedUser}
+          selectedRoom={selectedRoom}
+          rooms={rooms}
+          onLogout={handleLogout}
+          onCreateRoom={handleCreateRoom}
+          onJoinRoom={handleJoinRoom}
+          onSelectUser={handleSelectUser}
+          onSelectRoom={handleSelectRoom}
+        />
+      </div>
+
+      {/* Main chat area */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat header */}
+        <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              {selectedUser ? selectedUser.username : selectedRoom?.name}
+            </h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {selectedUser ? 'Direct Message' : selectedRoom?.description}
+            </p>
+          </div>
         </div>
-        <div className="p-4 border-t">
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+          <MessageList messages={messages} currentUser={user} />
+        </div>
+
+        {/* Message input */}
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <MessageInput onSendMessage={handleSendMessage} />
         </div>
       </div>
