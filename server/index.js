@@ -1,21 +1,30 @@
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load environment variables with the correct path
+dotenv.config({ path: join(__dirname, '.env') });
+
+// Debug logging
+console.log('MongoDB URI:', process.env.MONGODB_URI);
+console.log('Environment variables loaded from:', join(__dirname, '.env'));
+
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import authRoutes from './routes/auth.js';
 import messageRoutes from './routes/messages.js';
 import roomRoutes from './routes/rooms.js';
 import Message from './models/Message.js';
 import User from './models/User.js';
 import Room from './models/Room.js';
-
-dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
@@ -28,9 +37,6 @@ const io = new Server(httpServer, {
 });
 
 // File upload configuration
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, join(__dirname, 'uploads'))
